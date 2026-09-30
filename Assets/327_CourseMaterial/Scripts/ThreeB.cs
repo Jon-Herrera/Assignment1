@@ -38,7 +38,7 @@ public class ThreeB : MonoBehaviour
             // position is (x,y,z). In this case, I want to plot them on the circle with r
             
             // ******** Fill in this part ********
-            float theta = Mathf.PI / numberOfSphere * i;
+            float theta = 2f * Mathf.PI / numberOfSphere * i;
             bp[i].body.transform.position = new Vector3(r * Mathf.Cos(theta), r * Mathf.Sin(theta), 180);
             // z = 180 places the bodies in front of a camera near the origin looking along +Z. Try other positions too.
 
@@ -74,24 +74,6 @@ public class ThreeB : MonoBehaviour
 
     void Update()
     {
-        // Loop for N-body gravity
-        // How should we design the loop?
-        // for (int i = 0; i < numberOfSphere; i++)
-        // {
-        //     for (int j = 0; j < numberOfSphere; j++)
-        //     {
-        //         bp[i].acceleration = Vector3.zero; // Reset acceleration for each body before calculating new forces
-        //         if (j != i)
-        //         {
-        //             Vector3 distance = bp[i].body.transform.position - bp[j].body.transform.position; //get distance between the two
-        //             Vector3 gravity = CalculateGravity(distance, bp[i].mass, bp[j].mass); //calculate gravity between the two 
-        //             bp[i].acceleration -= gravity / bp[i].mass; //calculate acceleration
-        //         }
-        //     }
-        //     bp[i].velocity = bp[i].acceleration * Time.deltaTime * 30f;
-        //     bp[i].body.transform.position += bp[i].velocity * Time.deltaTime * 30f;
-        // }
-
         for (int i = 0; i< numberOfSphere; i++)
         {
             bp[i].acceleration = Vector3.zero; //set each acceleration to zero separately
