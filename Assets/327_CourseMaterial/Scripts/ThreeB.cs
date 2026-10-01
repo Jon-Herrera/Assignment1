@@ -6,12 +6,12 @@ using UnityEngine.Rendering;
 
 public class ThreeB : MonoBehaviour
 {
-    private const float G = 500f; // Gravitational constant for this simulation, not the real-world value.
+    private const float G = 50f; // Gravitational constant for this simulation, not the real-world value.
     BodyProperty[] bp;
 
     public Vector3 maxV = new Vector3(100f, 100f, 100f);
     float minimumDistance = 1f;
-    private int numberOfSphere = 10;
+    private int numberOfSphere = 100;
     class BodyProperty // why struct?
     {                   // https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/choosing-between-class-and-struct
         public GameObject body;
@@ -88,16 +88,17 @@ public class ThreeB : MonoBehaviour
                 bp[j].acceleration += gravity / bp[j].mass; //calculate acceleration
                 if (distance.magnitude < minimumDistance) //if two objects are closer than they should be
                 {
-                    bp[i].acceleration += 3f * gravity /bp[i].mass; // repel
-                    bp[j].acceleration -= 3f * gravity /bp[j].mass; // repel
+                    bp[i].acceleration +=  gravity / bp[i].mass; // repel
+                    bp[j].acceleration -= gravity / bp[j].mass; // repel
                 }
             }
             
         }
         for (int i = 0; i < numberOfSphere; i++)
         {
-            bp[i].velocity = bp[i].acceleration * Time.deltaTime * 30f;
-            bp[i].body.transform.position += bp[i].velocity * Time.deltaTime * 30f;
+            bp[i].velocity += bp[i].acceleration * Time.deltaTime;
+            bp[i].velocity = Vector3.ClampMagnitude(bp[i].velocity, 20f);
+            bp[i].body.transform.position += bp[i].velocity * Time.deltaTime;
         }
             
 

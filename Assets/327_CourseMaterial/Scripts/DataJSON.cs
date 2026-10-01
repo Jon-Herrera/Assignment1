@@ -23,6 +23,7 @@ public class DataJSON : MonoBehaviour
 {
     // This one object contains the bodies array from solar.json.
     public SolarData solarData;
+    internal BodyProperty[] bodies;
 
     void Awake()
     {
